@@ -1,7 +1,7 @@
 {
   "name": "photos-carousel-service",
-  "description": "SDC TopTable",
-  "author": "Katie Poa",
+  "description": "> Project description",
+  "author": "",
   "license": "ISC",
   "engines": {
     "node": ">=6.13.0"
@@ -24,6 +24,11 @@
     "faker": "^5.1.0",
     "mongoose": "^5.10.6",
     "nodemon": "^2.0.4",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-router": "^5.2.0",
+    "react-router-dom": "^5.2.0",
+    "styled-components": "^5.2.0",
     "webpack-cli": "^3.3.12"
   },
   "devDependencies": {
@@ -53,11 +58,11 @@
   "main": "server.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/TopTable-130/photos-carousel-service"
+    "url": "git+https://github.com/TKOut-HRSF130/photos-carousel-service.git"
   },
   "keywords": [],
   "bugs": {
-    "url": "https://github.com/TopTable-130/photos-carousel-service"
+    "url": "https://github.com/TKOut-HRSF130/photos-carousel-service/issues"
   },
-  "homepage": "https://github.com/TopTable-130/photos-carousel-service#readme"
+  "homepage": "https://github.com/TKOut-HRSF130/photos-carousel-service#readme"
 }
