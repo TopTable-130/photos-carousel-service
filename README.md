@@ -4,9 +4,9 @@ System Design Capstone: TopTable
 
 ## Related Projects
 
-  - Popular-Dishes: Jorgen https://github.com/TopTable-130/popular-dishes-proxy
-  - Bookings Service: Daniel https://github.com/TopTable-130/Calendar-proxy
-  - Reviews Service: Ryan
+  - Popular-Dishes: Jorgen https://github.com/TopTable-130/popular-dishes
+  - Bookings Service: Daniel https://github.com/TopTable-130/Calendar
+  - Reviews Service: Ryan https://github.com/TopTable-130/Reviews
 
 ## Table of Contents
 
@@ -25,12 +25,11 @@ System Design Capstone: TopTable
     {
       "photo_id": Number,
       "restaurant_id": Number (foreign key),
-      "category": String,
+      "category_id": Number (foreign key),
       "description": String,
       "date": String,
       "url_path": String,
-      "user_avatar_path": String,
-      "user_id": Number,
+      "user_id": Number (foreign key),
     }
 ```
 
@@ -38,17 +37,22 @@ System Design Capstone: TopTable
 ```json
 // photos
     {
-      "restaurant_id": int primary key,
-      "photo_id": int,
-      "category": text,
+      "id": uuid,
+      "photo_id": uuid,
+      "restaurant_id": int,
+      "rest_name": text,
+      "category_id": int,
+      "category_name": text,
       "description": text,
       "date": text,
       "url_path": text,
       "user_avatar_path": text,
       "user_id": int,
+      "first_name": text,
+      "last_name": text,
+      PRIMARY KEY ((id), photo_id)
     }
 ```
-
 
 ## Server API
 
@@ -85,12 +89,11 @@ System Design Capstone: TopTable
     {
       "photo_id": Number,
       "restaurant_id": Number (foreign key),
-      "category": String,
+      "category_id": Number (foreign key),
       "description": String,
       "date": String,
       "url_path": String,
-      "user_avatar_path": String,
-      "user_id": Number,
+      "user_id": Number (foreign key),
     }
 ```
 
@@ -149,7 +152,7 @@ System Design Capstone: TopTable
 
 **Path Parameters:**
 
-  * `retaurant_id` restaurant id
+  * `restaurant_id` restaurant id
 
 **Success Status Code:** `201`
 
@@ -160,12 +163,11 @@ System Design Capstone: TopTable
     {
       "photo_id": Number,
       "restaurant_id": Number (foreign key),
-      "category": String,
+      "category_id": Number (foreign key),
       "description": String,
       "date": String,
       "url_path": String,
-      "user_avatar_path": String,
-      "user_id": Number,
+      "user_id": Number (foreign key),
     }
 ```
 

@@ -3,21 +3,27 @@ Cassandra schema
 DROP KEYSPACE [ IF EXISTS ] toptable
 
 CREATE KEYSPACE toptable WITH replication =
-  {‘class’: ‘SimpleStrategy’, ‘replication_factor’ : 3};
+  {‘class’: 'NetworkTopologyStrategy', ‘replication_factor’ : 40};
 
 CREATE TABLE [IF NOT EXISTS ] restaurants (
   id uuid,
   photo_id uuid,
-  name blob,
-  restaurant_id int REFERENCES restaurants(id),
-  category text,
+  restaurant_id int,
+  rest_name text,
+  category_id int,
+  category_name text,
   description text,
   date text,
   url_path text,
   user_avatar_path text,
   user_id int,
+  first_name text,
+  last_name text,
   PRIMARY KEY ((id), photo_id)
   WITH comment = ‘Q6. Find photos by photo id’;
 )
 
-cqlsh -f
+-- Import keyspace:
+-- cqlsh shell
+-- From within Photos-carousel-service/database:
+-- source 'cass_schema.cql'
