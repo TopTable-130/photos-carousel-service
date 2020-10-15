@@ -18,18 +18,18 @@ System Design Capstone: TopTable
 ```json
 // restaurants
     {
-      "id": Number,
-      "name": String,
+      "id": "Number",
+      "name": "String",
     }
 // photos
     {
-      "photo_id": Number,
-      "restaurant_id": Number (foreign key),
-      "category_id": Number (foreign key),
-      "description": String,
-      "date": String,
-      "url_path": String,
-      "user_id": Number (foreign key),
+      "photo_id": "Number",
+      "restaurant_id": "Number (foreign key)",
+      "category_id": "Number (foreign key)",
+      "description": "String",
+      "date": "String",
+      "url_path": "String",
+      "user_id": "Number (foreign key)",
     }
 ```
 
@@ -37,20 +37,20 @@ System Design Capstone: TopTable
 ```json
 // photos
     {
-      "id": uuid,
-      "photo_id": uuid,
-      "restaurant_id": int,
-      "rest_name": text,
-      "category_id": int,
-      "category_name": text,
-      "description": text,
-      "date": text,
-      "url_path": text,
-      "user_avatar_path": text,
-      "user_id": int,
-      "first_name": text,
-      "last_name": text,
-      PRIMARY KEY ((id), photo_id)
+      "id": "uuid",
+      "photo_id": "uuid",
+      "restaurant_id": "int",
+      "rest_name": "text",
+      "category_id": "int",
+      "category_name": "text",
+      "description": "text",
+      "date": "text",
+      "url_path": "text",
+      "user_avatar_path": "text",
+      "user_id": "int",
+      "first_name": "text",
+      "last_name": "text",
+      "PRIMARY KEY ((id), photo_id)"
     }
 ```
 
@@ -69,8 +69,8 @@ System Design Capstone: TopTable
 ```json
 // restaurants
   {
-    "id": Number,
-    "name": String,
+    "id": "Number",
+    "name": "String",
   }
 ```
 
@@ -87,13 +87,13 @@ System Design Capstone: TopTable
 ```json
 // photos
     {
-      "photo_id": Number,
-      "restaurant_id": Number (foreign key),
-      "category_id": Number (foreign key),
-      "description": String,
-      "date": String,
-      "url_path": String,
-      "user_id": Number (foreign key),
+      "photo_id": "Number",
+      "restaurant_id": "Number (foreign key)",
+      "category_id": "Number (foreign key)",
+      "description": "String",
+      "date": "String",
+      "url_path": "String",
+      "user_id": "Number (foreign key)",
     }
 ```
 
@@ -107,8 +107,8 @@ System Design Capstone: TopTable
 ```json
 // restaurants
     {
-      "id": Number,
-      "name": String,
+      "id": "Number",
+      "name": "String",
     }
 ```
 
@@ -125,8 +125,8 @@ System Design Capstone: TopTable
 ```json
 // restaurants
     {
-      "id": Number,
-      "name": String,
+      "id": "Number",
+      "name": "String",
     }
 ```
 
@@ -161,13 +161,13 @@ System Design Capstone: TopTable
 ```json
 // photos
     {
-      "photo_id": Number,
-      "restaurant_id": Number (foreign key),
-      "category_id": Number (foreign key),
-      "description": String,
-      "date": String,
-      "url_path": String,
-      "user_id": Number (foreign key),
+      "photo_id": "Number",
+      "restaurant_id": "Number (foreign key)",
+      "category_id": "Number (foreign key)",
+      "description": "String",
+      "date": "String",
+      "url_path": "String",
+      "user_id": "Number (foreign key)",
     }
 ```
 

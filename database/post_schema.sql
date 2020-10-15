@@ -5,7 +5,7 @@ DROP DATABASE IF EXISTS toptable;
 CREATE DATABASE toptable;
 
 -- use 'toptable' database
-\c toptable;
+-- \c toptable;
 
 CREATE TABLE IF NOT EXISTS restaurants (
   id SERIAL PRIMARY KEY,
