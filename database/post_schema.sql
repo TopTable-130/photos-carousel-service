@@ -1,15 +1,19 @@
 -- PostgreSQL schema
+--
 
 DROP DATABASE IF EXISTS toptable;
 
 CREATE DATABASE toptable;
 
 -- use 'toptable' database
--- \c toptable;
+\c toptable;
 
+-- add constraints to fields***
 CREATE TABLE IF NOT EXISTS restaurants (
   id SERIAL PRIMARY KEY,
-  name text,
+  name varchar(30),
+  cuisine text,
+  address text,
 )
 
 CREATE TABLE IF NOT EXISTS photos (
@@ -24,16 +28,19 @@ CREATE TABLE IF NOT EXISTS photos (
 
 CREATE TABLE IF NOT EXISTS categories (
   id SERIAL PRIMARY KEY,
-  name text,
+  name varchar(30),
 )
 
 CREATE TABLE IF NOT EXISTS users (
   id SERIAL PRIMARY KEY,
-  first_name text,
-  last_name text,
-  user_avatar_path text,
+  first_name varchar(15),
+  last_name varchar(15),
+  user_avatar text,
 )
+
 -- another option create tuples within categories (to allow multiple categories per photo?)
+-- join table photos_categories (photo_id, category_id)
 
 -- Import database:
--- psql -u owner toptable < post_schema.sql
+-- psql postgres < post_schema.sql
+-- psql -U owner toptable < post_schema.sql
