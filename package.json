@@ -24,6 +24,7 @@
     "faker": "^5.1.0",
     "mongoose": "^5.10.6",
     "nodemon": "^2.0.4",
+    "pg": "^8.4.1",
     "webpack-cli": "^3.3.12"
   },
   "devDependencies": {

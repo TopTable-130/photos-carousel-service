@@ -4,9 +4,9 @@ System Design Capstone: TopTable
 
 ## Related Projects
 
-  - Popular-Dishes: Jorgen https://github.com/TopTable-130/popular-dishes-proxy
-  - Bookings Service: Daniel https://github.com/TopTable-130/Calendar-proxy
-  - Reviews Service: Ryan
+  - Popular-Dishes: Jorgen https://github.com/TopTable-130/popular-dishes
+  - Bookings Service: Daniel https://github.com/TopTable-130/Calendar
+  - Reviews Service: Ryan https://github.com/TopTable-130/Reviews
 
 ## Table of Contents
 
@@ -18,42 +18,80 @@ System Design Capstone: TopTable
 ```json
 // restaurants
     {
-      "id": Number,
-      "name": String,
+      "id": "Number",
+      "name": "String",
+      "cuisine": "String",
+      "address": "String",
     }
 // photos
     {
-      "photo_id": Number,
-      "restaurant_id": Number (foreign key),
-      "category": String,
-      "description": String,
-      "date": String,
-      "url_path": String,
-      "user_avatar_path": String,
-      "user_id": Number,
+      "photo_id": "Number",
+      "restaurant_id": "Number",
+      "category_id": "Number",
+      "description": "String",
+      "date": "String",
+      "url_path": "String",
+      "user_id": "Number",
+    }
+// categories
+    {
+      "id": "Number",
+      "name": "String",
+    }
+// users
+    {
+      "id": "Number",
+      "first_name": "String",
+      "last_name": "String",
+      "user_avatar": "String",
     }
 ```
 
 ## Cassandra Schema
 ```json
-// photos
+// restaurants
     {
-      "restaurant_id": int primary key,
-      "photo_id": int,
-      "category": text,
-      "description": text,
-      "date": text,
-      "url_path": text,
-      "user_avatar_path": text,
-      "user_id": int,
+      "id": "uuid",
+      "rest_name": "text",
+      "cuisine": "text",
+      "address": "text",
+      "PRIMARY KEY (id)"
+    }
+// photos by restaurant
+    {
+      "photo_id": "uuid",
+      "restaurant_id": "int",
+      "rest_name": "text",
+      "category_name": "text",
+      "description": "text",
+      "date": "timeuuid",
+      "url_path": "text",
+      "user_avatar": "text",
+      "first_name": "text",
+      "last_name": "text",
+      "PRIMARY KEY (photo_id)"
+    }
+// photos by category
+    {
+      "photo_id": "uuid",
+      "restaurant_id" "int",
+      "rest_name": "text",
+      "category_id": "int",
+      "category_name": "text",
+      "description": "text",
+      "date": "timeuuid",
+      "url_path": "text",
+      "user_avatar": "text",
+      "first_name": "text",
+      "last_name": "text",
+      "PRIMARY KEY (photo_id)"
     }
 ```
-
 
 ## Server API
 
-### Get restaurant info
-  * GET `/api/restaurants/:id`
+### Get all photos for a restaurant
+  * GET `/api/restaurants/:id/photos`
 
 **Path Parameters:**
   * `id` restaurant id
@@ -61,113 +99,124 @@ System Design Capstone: TopTable
 **Success Status Code:** `200`
 
 **Returns:** JSON
-
-```json
-// restaurants
-  {
-    "id": Number,
-    "name": String,
-  }
-```
-
-### Get restaurant info
-  * GET `/api/photos/:id`
-
-**Path Parameters:**
-  * `id` restaurant id
-
-**Success Status Code:** `200`
-
-**Returns:** JSON
-
+<!-- needs all photos -->
 ```json
 // photos
-    {
-      "photo_id": Number,
-      "restaurant_id": Number (foreign key),
-      "category": String,
-      "description": String,
-      "date": String,
-      "url_path": String,
-      "user_avatar_path": String,
-      "user_id": Number,
-    }
+    [
+      {
+        "photo_id": "Number",
+        "restaurant_id": "Number",
+        "category_id": "Number",
+        "description": "String",
+        "date": "String",
+        "url_path": "String",
+        "user_id": "Number",
+      },
+      {
+        "photo_id": "Number",
+        "restaurant_id": "Number",
+        "category_id": "Number",
+        "description": "String",
+        "date": "String",
+        "url_path": "String",
+        "user_id": "Number",
+      },
+    // ...x20
+    ]
 ```
 
-### Add restaurant
-  * POST `/api/restaurants`
+### Get all photos for restaurant by category info
+  * GET `/api/restaurants/:id/photos?category_id=categoryId`
+
+**Path Parameters:**
+  * `retaurant_id` restaurant id
+**Query Parameters:**
+  * `category_id` category id
+
+**Success Status Code:** `200`
+
+**Returns:** JSON
+<!-- needs all photos -->
+```json
+// photos
+    [
+      {
+        "photo_id": "Number",
+        "restaurant_id": "Number",
+        "category_id": "Number",
+        "description": "String",
+        "date": "String",
+        "url_path": "String",
+        "user_id": "Number",
+      },
+      {
+        "photo_id": "Number",
+        "restaurant_id": "Number",
+        "category_id": "Number",
+        "description": "String",
+        "date": "String",
+        "url_path": "String",
+        "user_id": "Number",
+      },
+    // ...x20
+    ]
+```
+
+### Add image to restaurant
+  * POST `/api/restaurants/:id/photos`
+
+**Path Parameters:**
+  * `restaurant_id` restaurant id
 
 **Success Status Code:** `201`
 
 **Request Body**: Expects JSON with the following keys.
 
 ```json
-// restaurants
+// photos
     {
-      "id": Number,
-      "name": String,
+      // "photo_id": "Number",
+      "restaurant_id": "Number",
+      "category_id": "Number",
+      "description": "String",
+      "date": "String",
+      "url_path": "String",
+      "user_id": "Number",
     }
 ```
 
-### Update restaurant info
-  * PATCH `/api/restaurants/:id`
+### Update photo info
+  * PATCH `/api/restaurants/:id/photos/:photoId`
 
 **Path Parameters:**
   * `id` restaurant id
+  * `photo_id` photo id
 
 **Success Status Code:** `204`
 
 **Request Body**: Expects JSON with any of the following keys (include only keys to be updated)
 
 ```json
-// restaurants
+// photos
     {
-      "id": Number,
-      "name": String,
+      "photo_id": "Number",
+      "restaurant_id": "Number",
+      "category_id": "Number",
+      "description": "String",
+      "date": "String",
+      "url_path": "String",
+      "user_id": "Number",
     }
 ```
 
-### Delete restaurant
-  * DELETE `/api/restaurants/:id`
-
-**Path Parameters:**
-  * `id` restaurant id
-
-**Success Status Code:** `204`
-
 ### Delete photo
-  * DELETE `/api/photos/:id`
+  * DELETE `/api/restaurants/:id/photos/:photoId`
 
 **Path Parameters:**
   * `photo_id` photo id
   * `restaurant_id` restaurant id
 
 **Success Status Code:** `204`
-
-### Add image to restaurant
-  * POST `/api/photos/:id/images`
-
-**Path Parameters:**
-
-  * `retaurant_id` restaurant id
-
-**Success Status Code:** `201`
-
-**Request Body**: Expects JSON with the following keys.
-
-```json
-// photos
-    {
-      "photo_id": Number,
-      "restaurant_id": Number (foreign key),
-      "category": String,
-      "description": String,
-      "date": String,
-      "url_path": String,
-      "user_avatar_path": String,
-      "user_id": Number,
-    }
-```
 
 ## Requirements
 An nvmrc file is included if using nvm.
