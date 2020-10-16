@@ -1,4 +1,4 @@
-Cassandra schema
+-- Cassandra schema
 
 DROP KEYSPACE IF EXISTS toptable
 

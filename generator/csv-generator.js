@@ -16,3 +16,14 @@ const client = new Client();
   console.log(res.rows[0].message) // Hello world!
   await client.end()
 })()
+
+// avoid using faker
+
+const getRandomPhotoUrl = () => {
+  const bucketUrl = 'https://hrsf130-tkout-photo-gallery.s3.us-east-2.amazonaws.com/';
+  const photoEndpoint = getRandomIntInclusive(1, 40).toString();
+  return `${bucketUrl}${photoEndpoint}.png`;
+};
+
+
+

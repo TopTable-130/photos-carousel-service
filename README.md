@@ -90,26 +90,6 @@ System Design Capstone: TopTable
 
 ## Server API
 
-### Get list of restaurants
-  * GET `/api/restaurants/:id`
-
-**Path Parameters:**
-  * `id` restaurant id
-
-**Success Status Code:** `200`
-
-**Returns:** JSON
-
-```json
-// restaurants
-    {
-      "id": "Number",
-      "name": "String",
-      "cuisine": "String",
-      "address": "String",
-    }
-```
-
 ### Get all photos for a restaurant
   * GET `/api/restaurants/:id/photos`
 
@@ -146,10 +126,11 @@ System Design Capstone: TopTable
 ```
 
 ### Get all photos for restaurant by category info
-  * GET `/api/restaurants/:id/category/:categoryId`
+  * GET `/api/restaurants/:id/photos?category_id=categoryId`
 
 **Path Parameters:**
   * `retaurant_id` restaurant id
+**Query Parameters:**
   * `category_id` category id
 
 **Success Status Code:** `200`
@@ -181,29 +162,10 @@ System Design Capstone: TopTable
     ]
 ```
 
-
-### Add restaurant
-  * POST `/api/restaurants`
-
-**Success Status Code:** `201`
-
-**Request Body**: Expects JSON with the following keys.
-
-```json
-// restaurants
-    {
-      "id": "Number",
-      "name": "String",
-      "cuisine": "String",
-      "address": "String",
-    }
-```
-
 ### Add image to restaurant
-  * POST `/api/restaurants/:id/photos/:photoId`
+  * POST `/api/restaurants/:id/photos`
 
 **Path Parameters:**
-
   * `restaurant_id` restaurant id
 
 **Success Status Code:** `201`
@@ -223,33 +185,29 @@ System Design Capstone: TopTable
     }
 ```
 
-### Update restaurant info
-  * PATCH `/api/restaurants/:id`
+### Update photo info
+  * PATCH `/api/restaurants/:id/photos/:photoId`
 
 **Path Parameters:**
   * `id` restaurant id
+  * `photo_id` photo id
 
 **Success Status Code:** `204`
 
 **Request Body**: Expects JSON with any of the following keys (include only keys to be updated)
 
 ```json
-// restaurants
+// photos
     {
-      "id": "Number",
-      "name": "String",
-      "cuisine": "String",
-      "address": "String",
+      "photo_id": "Number",
+      "restaurant_id": "Number",
+      "category_id": "Number",
+      "description": "String",
+      "date": "String",
+      "url_path": "String",
+      "user_id": "Number",
     }
 ```
-
-### Delete restaurant
-  * DELETE `/api/restaurants/:id`
-
-**Path Parameters:**
-  * `id` restaurant id
-
-**Success Status Code:** `204`
 
 ### Delete photo
   * DELETE `/api/restaurants/:id/photos/:photoId`
