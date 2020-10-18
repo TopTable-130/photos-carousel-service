@@ -5,7 +5,7 @@ DROP KEYSPACE IF EXISTS toptable
 CREATE KEYSPACE toptable WITH replication =
   {‘class’: 'NetworkTopologyStrategy', ‘replication_factor’ : 1};
 
-CREATE TABLE IF NOT EXISTS restaurants (
+CREATE TABLE IF NOT EXISTS toptable.restaurants (
   id uuid,
   rest_name text,
   cuisine text,
@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS restaurants (
   PRIMARY KEY (id)
 )
 
-CREATE TABLE IF NOT EXISTS photos_by_restaurant (
+CREATE TABLE IF NOT EXISTS toptable.photos_by_restaurant (
   photo_id uuid,
   restaurant_id int,
   rest_name text,
@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS photos_by_restaurant (
 )
 WITH CLUSTERING ORDER BY (date);
 
-CREATE TABLE IF NOT EXISTS photos_by_category (
+CREATE TABLE IF NOT EXISTS toptable.photos_by_category (
   photo_id uuid,
   restaurant_id int,
   rest_name text,
@@ -43,11 +43,6 @@ CREATE TABLE IF NOT EXISTS photos_by_category (
   PRIMARY KEY ((restaurant_id, category_id), photo_id)
 )
 WITH CLUSTERING ORDER BY (date);
-
--- query photos by category? partition
---   PRIMARY KEY ((restaurant_id, category_id), id)
-
--- display in specific order? by upload date
 
 -- Import keyspace:
 -- cqlsh shell
