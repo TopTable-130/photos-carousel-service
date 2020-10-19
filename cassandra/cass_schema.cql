@@ -48,3 +48,7 @@ WITH CLUSTERING ORDER BY (date);
 -- cqlsh shell
 -- From within Photos-carousel-service/database:
 -- source 'cass_schema.cql'
+
+COPY restaurants (id, rest_name, cuisine, address) FROM '/Users/owner/Desktop/Hack Reactor/SDC/photos-carousel-service/cassandra/csv/restaurants.csv' with header=true and delimiter =',';
+COPY restaurants (id, rest_name, cuisine, address) FROM '/Users/owner/Desktop/Hack Reactor/SDC/photos-carousel-service/cassandra/csv/photos_by_restaurant.csv' with header=true and delimiter =',';
+COPY restaurants (id, rest_name, cuisine, address) FROM '/Users/owner/Desktop/Hack Reactor/SDC/photos-carousel-service/cassandra/csv/photos_by_category.csv' with header=true and delimiter =',';

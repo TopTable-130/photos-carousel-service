@@ -47,7 +47,7 @@ const generatePhotos () => {
     })
   }
   writer.end();
-  console.log('Seeded PostgreSQL with 10000 photos!');
+  console.log('Seeded Cassandra with 10000 photos!');
 }
 
 generatePhotos();

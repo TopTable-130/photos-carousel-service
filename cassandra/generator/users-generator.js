@@ -38,7 +38,7 @@ const generateUsers () => {
     })
   }
   writer.end();
-  console.log('Seeded PostgreSQL with 10000 Users!');
+  console.log('Seeded Cassandra with 10000 Users!');
 };
 
 generateUsers();

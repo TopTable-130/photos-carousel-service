@@ -49,7 +49,7 @@ const generateRestaurants () => {
     })
   }
   writer.end();
-  console.log('Seeded PostgreSQL with 10000 restaurants!');
+  console.log('Seeded Cassandra with 10000 restaurants!');
 };
 
 generateRestaurants();

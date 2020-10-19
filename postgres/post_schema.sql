@@ -43,3 +43,8 @@ CREATE TABLE photos (
 
 -- Import database:
 -- psql toptable -U owner <database/post_schema.sql
+
+COPY restaurants FROM '/Users/owner/Desktop/Hack Reactor/SDC/photos-carousel-service/postgres/csv/restaurants.csv' CSV header;
+COPY categories FROM '/Users/owner/Desktop/Hack Reactor/SDC/photos-carousel-service/postgres/csv/categories.csv' CSV header;
+COPY users FROM '/Users/owner/Desktop/Hack Reactor/SDC/photos-carousel-service/postgres/csv/users.csv' CSV header;
+COPY photos FROM '/Users/owner/Desktop/Hack Reactor/SDC/photos-carousel-service/postgres/csv/photos.csv' CSV header;

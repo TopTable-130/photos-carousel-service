@@ -6,3 +6,4 @@ const client = new cassandra.Client({
   keyspace: 'toptable'
 });
 
+module.exports = client;
