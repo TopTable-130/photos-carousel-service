@@ -19,37 +19,25 @@ const cuisines =
   'Persian', 'Peruvian', 'Seafood', 'Southeast Asian', 'Spanish', 'Steak',
   'Thai', 'Vegetarian', 'Vietnamese' ];
 
-// o-o   o-o  o--o o---o
-// o     o     |       /
-// |  -o |  -o O-o   -O-
-// o   | o   | |     /
-// o-o   o-o  o--o o---o
-
-const generateRestaurants () => {
-  writer.pipe(fs.createWriteStream('restaurants.csv'));
-  for (var i = 1; i <= 10000; i++) {
-    i === 1000
-      ? console.log('o-o   o-o  o--o o---o ')
-        : i === 2000
-        ? console.log('o     o     |       /')
-          : i === 5000
-          ? console.log('|  -o |  -o O-o   -O-
-          ')
-            : i === 8000
-            ? console.log('o   | o   | |     /
-            ')
-              : i === 10000
-              ? console.log('o-o   o-o  o--o o---o
-              ')
+const generateRestaurants = () => {
+  writer.pipe(fs.createWriteStream('postgres/csv/restaurants.csv'));
+  for (var i = 0; i < 5000000; i++) {
+    if (i % 500000 === 0) {
+      console.log(`${i / 5000000 * 100}% done`)
+    }
     writer.write({
-      id: i,
-      rest_name: restaurants[randomize(0, restaurants.length - 1)];
-      cuisine: cuisines[randomize(0, cuisines.length - 1)];
-      address: faker.address();
-    })
+      rest_name: restaurants[randomize(0, restaurants.length - 1)],
+      cuisine: cuisines[randomize(0, cuisines.length - 1)],
+      street: faker.address.streetAddress(),
+      city: faker.address.city(),
+      state: faker.address.state(),
+      zip_code: faker.address.zipCode(),
+    });
   }
   writer.end();
-  console.log('Seeded Cassandra with 10000 restaurants!');
+  console.log('Seeded PostgreSQL with 5000000 restaurants!');
 };
 
 generateRestaurants();
+
+// module.exports = generateRestaurants;

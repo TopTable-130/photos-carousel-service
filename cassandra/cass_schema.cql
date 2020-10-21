@@ -3,13 +3,16 @@
 DROP KEYSPACE IF EXISTS toptable
 
 CREATE KEYSPACE toptable WITH replication =
-  {‘class’: 'NetworkTopologyStrategy', ‘replication_factor’ : 1};
+  {‘class’: 'SimpleStrategy', ‘replication_factor’ : 1};
 
 CREATE TABLE IF NOT EXISTS toptable.restaurants (
   id uuid,
   rest_name text,
   cuisine text,
-  address text,
+  street text,
+  city text,
+  state text,
+  zip_code text,
   PRIMARY KEY (id)
 )
 
@@ -49,6 +52,6 @@ WITH CLUSTERING ORDER BY (date);
 -- From within Photos-carousel-service/database:
 -- source 'cass_schema.cql'
 
-COPY restaurants (id, rest_name, cuisine, address) FROM '/Users/owner/Desktop/Hack Reactor/SDC/photos-carousel-service/cassandra/csv/restaurants.csv' with header=true and delimiter =',';
-COPY restaurants (id, rest_name, cuisine, address) FROM '/Users/owner/Desktop/Hack Reactor/SDC/photos-carousel-service/cassandra/csv/photos_by_restaurant.csv' with header=true and delimiter =',';
-COPY restaurants (id, rest_name, cuisine, address) FROM '/Users/owner/Desktop/Hack Reactor/SDC/photos-carousel-service/cassandra/csv/photos_by_category.csv' with header=true and delimiter =',';
+COPY restaurants (rest_name, cuisine, address) FROM '/Users/owner/Desktop/Hack Reactor/SDC/photos-carousel-service/cassandra/csv/restaurants.csv' with header=true and delimiter =',';
+COPY photos_by_restaurant (rest_name, cuisine, address) FROM '/Users/owner/Desktop/Hack Reactor/SDC/photos-carousel-service/cassandra/csv/photos_by_restaurant.csv' with header=true and delimiter =',';
+COPY photos_by_category (rest_name, cuisine, address) FROM '/Users/owner/Desktop/Hack Reactor/SDC/photos-carousel-service/cassandra/csv/photos_by_category.csv' with header=true and delimiter =',';

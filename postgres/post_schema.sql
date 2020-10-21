@@ -11,21 +11,24 @@ CREATE DATABASE toptable;
 
 CREATE TABLE restaurants (
   id SERIAL PRIMARY KEY,
-  name varchar(30),
+  name varchar(100),
   cuisine text,
-  address text,
+  street text,
+  city text,
+  state text,
+  zip_code text
 );
 
 CREATE TABLE categories (
   id SERIAL PRIMARY KEY,
-  name varchar(30),
+  name varchar(30)
 );
 
 CREATE TABLE users (
   id SERIAL PRIMARY KEY,
   first_name varchar(15),
   last_name varchar(15),
-  user_avatar text,
+  user_avatar text
 );
 
 CREATE TABLE photos (
@@ -35,16 +38,16 @@ CREATE TABLE photos (
   description text,
   date text,
   url_path text,
-  user_id int REFERENCES users(id),
+  user_id int REFERENCES users(id)
 );
+
+COPY restaurants (name, cuisine, street, city, state, zip_code) FROM '/Users/owner/Desktop/Hack Reactor/SDC - TopTable/photos-carousel-service/postgres/csv/restaurants.csv' DELIMITERS ',' CSV header;
+COPY categories (name) FROM '/Users/owner/Desktop/Hack Reactor/SDC - TopTable/photos-carousel-service/postgres/csv/categories.csv' DELIMITERS ','CSV header;
+COPY users (first_name, last_name, user_avatar) FROM '/Users/owner/Desktop/Hack Reactor/SDC - TopTable/photos-carousel-service/postgres/csv/users.csv' DELIMITERS ',' CSV header;
+COPY photos (restaurant_id, category_id, description, date, url_path, user_id) FROM '/Users/owner/Desktop/Hack Reactor/SDC - TopTable/photos-carousel-service/postgres/csv/photos.csv' DELIMITERS ',' CSV header;
 
 -- to allow multiple categories per photo:
   -- join table photos_categories (photo_id, category_id)
 
 -- Import database:
--- psql toptable -U owner <database/post_schema.sql
-
-COPY restaurants FROM '/Users/owner/Desktop/Hack Reactor/SDC/photos-carousel-service/postgres/csv/restaurants.csv' CSV header;
-COPY categories FROM '/Users/owner/Desktop/Hack Reactor/SDC/photos-carousel-service/postgres/csv/categories.csv' CSV header;
-COPY users FROM '/Users/owner/Desktop/Hack Reactor/SDC/photos-carousel-service/postgres/csv/users.csv' CSV header;
-COPY photos FROM '/Users/owner/Desktop/Hack Reactor/SDC/photos-carousel-service/postgres/csv/photos.csv' CSV header;
+-- psql toptable -U owner <postgres/post_schema.sql

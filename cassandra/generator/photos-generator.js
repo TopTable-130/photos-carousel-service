@@ -9,35 +9,20 @@ const randomize = (min, max) => {
   return Math.floor(Math.random() * (max - min) + min)
 }
 
-// specify how many photos per bucket ~
 const getRandomPhotoUrl = () => {
   const bucketUrl = 'https://toptable-gallery.s3-us-west-1.amazonaws.com/';
-  const photoEndpoint = getRandomIntInclusive(1, 1000).toString();
+  const photoEndpoint = randomize(1, 1000).toString();
   return `${bucketUrl}${photoEndpoint}.jpg`;
 };
 
-// https://hackreactor-restaurant-images.s3-us-west-2.amazonaws.com/newseed/1a.jpg
-// https://hrsf130-tkout-photo-gallery.s3.us-east-2.amazonaws.com/1.png
-// npx bulksplash
-
-const generatePhotos () => {
-  writer.pipe(fs.createWriteStream('photos.csv'));
-  for (var i = 0; i < 100000; i++) {
-    i === 1000
-      ? console.log('o-o   o-o  o--o o---o ')
-        : i === 2000
-        ? console.log('o     o     |       /')
-          : i === 5000
-          ? console.log('|  -o |  -o O-o   -O-
-          ')
-            : i === 8000
-            ? console.log('o   | o   | |     /
-            ')
-              : i === 10000
-              ? console.log('o-o   o-o  o--o o---o
-              ')
+const generatePhotos = () => {
+  // node --max-old-space-size=8192
+  writer.pipe(fs.createWriteStream('postgres/csv/photos.csv'));
+  for (var i = 0; i < 5000000; i++) {
+    if (i % 500000 === 0) {
+      console.log(`${i / 5000000 * 100}% done`)
+    }
     writer.write({
-      id: i,
       restaurant_id: randomize(1, restaurants.length),
       category_id: randomize(1, 7),
       description: faker.lorem.sentence(),
@@ -47,10 +32,9 @@ const generatePhotos () => {
     })
   }
   writer.end();
-  console.log('Seeded Cassandra with 10000 photos!');
+  console.log('Seeded PostgreSQL with 5000000 photos!');
 }
 
 generatePhotos();
 
-// -- Import csv file to seed database
-// psql -U owner -d toptable -c "COPY toptable FROM generator/photos-generator.js" CSV HEADER;
+// module.exports = generatePhotos;
