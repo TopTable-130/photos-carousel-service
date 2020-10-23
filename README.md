@@ -21,17 +21,10 @@ System Design Capstone: TopTable
       "id": "Number",
       "name": "String",
       "cuisine": "String",
-      "address": "String",
-    }
-// photos
-    {
-      "photo_id": "Number",
-      "restaurant_id": "Number",
-      "category_id": "Number",
-      "description": "String",
-      "date": "String",
-      "url_path": "String",
-      "user_id": "Number",
+      "street": "String",
+      "city": "String",
+      "state": "String",
+      "zip_code": "String",
     }
 // categories
     {
@@ -45,6 +38,16 @@ System Design Capstone: TopTable
       "last_name": "String",
       "user_avatar": "String",
     }
+// photos
+    {
+      "photo_id": "Number",
+      "restaurant_id": "Number",
+      "category_id": "Number",
+      "description": "String",
+      "date": "String",
+      "url_path": "String",
+      "user_id": "Number",
+    }
 ```
 
 ## Cassandra Schema
@@ -54,13 +57,15 @@ System Design Capstone: TopTable
       "id": "uuid",
       "rest_name": "text",
       "cuisine": "text",
-      "address": "text",
+      "street": "text",
+      "city": "text",
+      "state": "text",
+      "zip_code": "text",
       "PRIMARY KEY (id)"
     }
 // photos by restaurant
     {
       "photo_id": "uuid",
-      "restaurant_id": "int",
       "rest_name": "text",
       "category_name": "text",
       "description": "text",
@@ -69,14 +74,12 @@ System Design Capstone: TopTable
       "user_avatar": "text",
       "first_name": "text",
       "last_name": "text",
-      "PRIMARY KEY (photo_id)"
+      "PRIMARY KEY (restaurant_id, photo_id)"
     }
 // photos by category
     {
       "photo_id": "uuid",
-      "restaurant_id" "int",
       "rest_name": "text",
-      "category_id": "int",
       "category_name": "text",
       "description": "text",
       "date": "timeuuid",
@@ -84,7 +87,7 @@ System Design Capstone: TopTable
       "user_avatar": "text",
       "first_name": "text",
       "last_name": "text",
-      "PRIMARY KEY (photo_id)"
+      "PRIMARY KEY ((restaurant_id, category_name), photo_id)"
     }
 ```
 
@@ -126,7 +129,7 @@ System Design Capstone: TopTable
 ```
 
 ### Get all photos for restaurant by category info
-  * GET `/api/restaurants/:id/photos?category_id=categoryId`
+  * GET `/api/restaurants/:id/photos?category_id=category_id`
 
 **Path Parameters:**
   * `retaurant_id` restaurant id
@@ -186,7 +189,7 @@ System Design Capstone: TopTable
 ```
 
 ### Update photo info
-  * PATCH `/api/restaurants/:id/photos/:photoId`
+  * PATCH `/api/restaurants/:id/photos/:photo_id`
 
 **Path Parameters:**
   * `id` restaurant id
@@ -210,11 +213,10 @@ System Design Capstone: TopTable
 ```
 
 ### Delete photo
-  * DELETE `/api/restaurants/:id/photos/:photoId`
+  * DELETE `/api/restaurants/photos/:photo_id`
 
 **Path Parameters:**
   * `photo_id` photo id
-  * `restaurant_id` restaurant id
 
 **Success Status Code:** `204`
 

@@ -4,10 +4,6 @@ const writer = csvWriter();
 
 const categories = ['Food', 'Drink', 'Interior', 'Exterior', 'Atmosphere', 'Menu', 'Dessert'];
 
-const randomize = (min, max) => {
-  return Math.floor(Math.random() * (max - min) + min)
-};
-
 //  ____ ____ ____ ____
 // ||G |||G |||E |||Z ||
 // ||__|||__|||__|||__||
@@ -26,11 +22,11 @@ const generateCategories = () => {
       console.log(`|/__\\|/__\\|/__\\|/__\\|`);
     }
     writer.write({
-      name: categories[randomize(0, 6)],
+      name: categories[i - 1],
     })
   }
   writer.end();
-  console.log('Seeded PostgreSQL with categories!');
+  console.log('Loaded CSV with categories!');
 };
 
 generateCategories();
