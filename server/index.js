@@ -1,3 +1,4 @@
+require('newrelic');
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
@@ -5,7 +6,7 @@ const bodyParser = require('body-parser');
 const app = express();
 const port = 3000;
 
-const db = require('../database/pg');
+const db = require('../postgres/index.js');
 
 app.use('/', bodyParser.json());
 
@@ -14,29 +15,21 @@ app.use('/', bodyParser.json());
 // before any queries
 app.get('/api/restaurants/:id/photos', (req, res) => {
   const { id } = req.params;
-  db.query('SELECT * FROM photos WHERE restaurant_id = ?', [id])
-    .then((res) => {
-      res.status(200).send(res);
+  db.query('SELECT * FROM photos WHERE restaurant_id = $1', [id])
+    .then((data) => {
+      res.json(data.rows);
     })
     .catch((err) => {
       console.log(err);
     });
-
-  // (err, data) => {
-  //   if (err) {
-  //     res.status(400).send(err);
-  //   } else {
-  //     res.status(200).send(data);
-  //   }
-  // }
 });
 
 app.get('/api/restaurants/:id/photos?category_id=category_id', (req, res) => {
   const { id } = req.params;
   const { category_id } = req.query;
-  db.query('SELECT * FROM photos WHERE restaurant_id = ? AND category_id = ?', [id, category_id])
-    .then((res) => {
-      res.status(200).send(res);
+  db.query('SELECT * FROM photos WHERE restaurant_id = $1 AND category_id = $2', [id, category_id])
+    .then((data) => {
+      res.json(data.rows);
     })
     .catch((err) => {
       console.log(err);
@@ -45,9 +38,9 @@ app.get('/api/restaurants/:id/photos?category_id=category_id', (req, res) => {
 
 app.post('/api/restaurants/photos', (req, res) => {
   const { restaurant_id, category_id, description, date, url_path, user_id } = req.body;
-  db.query('INSERT INTO photos (restaurant_id, category_id, description, date, url_path, user_id) values (?)', [[restaurant_id, category_id, description, date, url_path, user_id]])
-    .then((res) => {
-      res.status(200).send(res);
+  db.query('INSERT INTO photos (restaurant_id, category_id, description, date, url_path, user_id) values ($1)', [[restaurant_id, category_id, description, date, url_path, user_id]])
+    .then((data) => {
+      res.json(data.rows);
     })
     .catch((err) => {
       console.log(err);
@@ -68,9 +61,9 @@ app.patch('/api/restaurants/:id/photos/:photo_id', (req, res) => {
     results += `, ${keys[i]} = ${values[i]}`;
   }
   // req.body.keys();
-  db.query('UPDATE photos set ? WHERE restaurant_id = ? and photo_id = ?', results, id, photo_id)
-    .then((res) => {
-      res.status(200).send(res);
+  db.query('UPDATE photos SET $1 WHERE restaurant_id = $2 and photo_id = $3', results, id, photo_id)
+    .then((data) => {
+      res.json(data.rows);
     })
     .catch((err) => {
       console.log(err);
@@ -80,9 +73,9 @@ app.patch('/api/restaurants/:id/photos/:photo_id', (req, res) => {
 
 app.delete('/api/restaurants/:id/photos/:photo_id', (req, res) => {
   const { id, photoId } = req.params;
-  db.query('DELETE FROM photos WHERE restaurant_id = ? and photo_id = ?', [id, photo_id])
-    .then((res) => {
-      res.status(200).send(res);
+  db.query('DELETE FROM photos WHERE photo_id = $1', [id, photo_id])
+    .then((data) => {
+      res.json(data.rows);
     })
     .catch((err) => {
       console.log(err);
@@ -94,8 +87,4 @@ app.delete('/api/restaurants/:id/photos/:photo_id', (req, res) => {
 app.listen(port, () => {
   console.log(`Photos-Gallery App Listening on Port http://localhost:${port}`);
 });
-
-
-
-
 
