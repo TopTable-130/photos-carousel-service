@@ -1,7 +1,7 @@
 import http from 'k6/http';
 import { sleep } from 'k6';
 import { check } from 'k6';
-import { Rate } from 'k6/metrics';
+import { Rate, Trend } from 'k6/metrics';
 
 export let galleryTrend = new Trend('GET /api/restaurants Response Time (ms)');
 export let galleryErrorRate = new Rate('GET /api/restaurants Error Rate');
