@@ -3,7 +3,8 @@ import { sleep } from 'k6';
 import { check } from 'k6';
 import { Rate } from 'k6/metrics';
 
-export let errorRate = new Rate('errors');
+export let galleryTrend = new Trend('GET /api/restaurants Response Time (ms)');
+export let galleryErrorRate = new Rate('GET /api/restaurants Error Rate');
 
 export let options = {
   stages: [
