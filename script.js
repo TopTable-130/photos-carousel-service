@@ -8,11 +8,12 @@ export let galleryErrorRate = new Rate('GET /api/restaurants Error Rate');
 
 export let options = {
   stages: [
-    { duration: '1m', target: 200 },
-    { duration: '2m', target: 500 },
-    { duration: '5m', target: 1000 },
-    { duration: '2m', target: 500 },
-    { duration: '1m', target: 200 },
+    { duration: '30s', target: 500 },
+    { duration: '1m', target: 500 },
+    { duration: '30s', target: 1000 },
+    { duration: '1m', target: 1000 },
+    { duration: '15s', target: 2000 },
+    { duration: '1m', target: 2000 },
   ],
 };
 
