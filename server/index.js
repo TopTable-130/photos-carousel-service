@@ -10,6 +10,8 @@ const db = require('../database/pg');
 app.use('/', bodyParser.json());
 
 // Postgres
+// \timing
+// before any queries
 app.get('/api/restaurants/:id/photos', (req, res) => {
   const { id } = req.params;
   db.query('SELECT * FROM photos WHERE restaurant_id = ?', [id])
@@ -29,10 +31,21 @@ app.get('/api/restaurants/:id/photos', (req, res) => {
   // }
 });
 
-app.post('/api/restaurants/:id/photos', (req, res) => {
+app.get('/api/restaurants/:id/photos?category_id=category_id', (req, res) => {
   const { id } = req.params;
+  const { category_id } = req.query;
+  db.query('SELECT * FROM photos WHERE restaurant_id = ? AND category_id = ?', [id, category_id])
+    .then((res) => {
+      res.status(200).send(res);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
+app.post('/api/restaurants/photos', (req, res) => {
   const { restaurant_id, category_id, description, date, url_path, user_id } = req.body;
-  db.query('INSERT INTO photos (restaurant_id, category_id, description, date, url_path, user_id) values (?) WHERE restaurant_id = ?', [[restaurant_id, category_id, description, date, url_path, user_id], id])
+  db.query('INSERT INTO photos (restaurant_id, category_id, description, date, url_path, user_id) values (?)', [[restaurant_id, category_id, description, date, url_path, user_id]])
     .then((res) => {
       res.status(200).send(res);
     })
@@ -40,11 +53,22 @@ app.post('/api/restaurants/:id/photos', (req, res) => {
       console.log(err);
     });
 })
+// INSERT INTO photos (restaurant_id, category_id, description, date, url_path, user_id) values (10, 5, 'Sunt aperiam delectus consequatur repellat totam repudiandae.', 'Sat Feb 24 2018 09:41:33 GMT-0800 (Pacific Standard Time)', 'https://toptable-gallery.s3-us-west-1.amazonaws.com/222.jpg', 30333);
 
-app.patch('/api/restaurants/:id/photos/:photoId', (req, res) => {
-  const { id, photoId } = req.params;
+app.patch('/api/restaurants/:id/photos/:photo_id', (req, res) => {
+  const { id, photo_id } = req.params;
+  const results = '';
+  const keys = req.body.keys();
+  const values = req.body.values();
+  for (let i = 0; i < keys.length; i++) {
+    if (results === '') {
+      results += `${keys[i]} = ${values[i]}`;
+      continue;
+    }
+    results += `, ${keys[i]} = ${values[i]}`;
+  }
   // req.body.keys();
-  db.query('ALTER TABLE photos (?) values (?) WHERE restaurant_id = ? and photo_id = ?', [[restaurant_id, category_id, description, date, url_path, user_id], [restaurant_id, category_id, description, date, url_path, user_id], id, photoId])
+  db.query('UPDATE photos set ? WHERE restaurant_id = ? and photo_id = ?', results, id, photo_id)
     .then((res) => {
       res.status(200).send(res);
     })
@@ -52,10 +76,11 @@ app.patch('/api/restaurants/:id/photos/:photoId', (req, res) => {
       console.log(err);
     });
 })
+// UPDATE photos SET description = 'Delicious paella meal for two', url_path = 'https://toptable-gallery.s3-us-west-1.amazonaws.com/322.jpg' WHERE restaurant_id = 11 and photo_id = 9999999;
 
-app.delete('/api/restaurants/:id/photos/:photoId', (req, res) => {
+app.delete('/api/restaurants/:id/photos/:photo_id', (req, res) => {
   const { id, photoId } = req.params;
-  db.query('DELETE FROM photos WHERE restaurant_id = ? and photo_id = ?', [id, photoId])
+  db.query('DELETE FROM photos WHERE restaurant_id = ? and photo_id = ?', [id, photo_id])
     .then((res) => {
       res.status(200).send(res);
     })

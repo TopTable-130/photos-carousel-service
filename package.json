@@ -7,14 +7,12 @@
     "node": ">=6.13.0"
   },
   "scripts": {
-    "pg-restaurants": "node --max-old-space-size=4096 postgres/generator/restaurants-generator.js",
-    "pg-categories": "node --max-old-space-size=4096 postgres/generator/categories-generator.js",
+    "pg-restaurants": "node --max-old-space-size=7168 postgres/generator/restaurants-generator.js",
+    "pg-categories": "node postgres/generator/categories-generator.js",
     "pg-users": "node --max-old-space-size=4096 postgres/generator/users-generator.js",
-    "pg-photos": "node --max-old-space-size=4096 postgres/generator/photos-generator.js",
-    "cass-restaurants": "node --max-old-space-size=4096 cassandra/generator/restaurants-generator.js",
-    "cass-categories": "node --max-old-space-size=4096 cassandra/generator/categories-generator.js",
-    "cass-users": "node --max-old-space-size=4096 cassandra/generator/users-generator.js",
-    "cass-photos": "node --max-old-space-size=4096 cassandra/generator/photos-generator.js"
+    "pg-photos": "node --max-old-space-size=7168 postgres/generator/photos-generator.js",
+    "cass-restaurants": "node --max-old-space-size=7168 cassandra/generator/restaurants-generator.js",
+    "cass-photos": "node --max-old-space-size=7168 cassandra/generator/photos-generator.js"
   },
   "dependencies": {
     "axios": "^0.20.0",

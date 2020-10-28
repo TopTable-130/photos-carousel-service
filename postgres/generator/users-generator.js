@@ -28,7 +28,7 @@ const generateUsers = () => {
     })
   }
   writer.end();
-  console.log('Seeded PostgreSQL with 2000000 users!');
+  console.log('Loaded CSV with 2000000 users!');
 };
 
 generateUsers();
