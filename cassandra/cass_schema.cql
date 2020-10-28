@@ -48,6 +48,10 @@ CREATE TABLE IF NOT EXISTS toptable.photos_by_category (
 -- cqlsh shell
 -- From within Photos-carousel-service/database:
 -- source 'cass_schema.cql'
+-- Increase request timeout to prevent timeout 'Coordinator node timed out waiting for replica nodes' responses'
+-- cqlsh --request-timeout=10000
+
+
 
 COPY restaurants (id, rest_name, cuisine, street, city, state, zip_code) FROM '/Users/owner/Desktop/Hack Reactor/SDC - TopTable/photos-carousel-service/cassandra/csv/restaurants.csv' WITH DELIMITER =',' AND HEADER=TRUE;
 COPY restaurants (id, rest_name, cuisine, street, city, state, zip_code) FROM '/Users/owner/Desktop/Hack Reactor/SDC - TopTable/photos-carousel-service/cassandra/csv/restaurants2.csv' WITH DELIMITER =',' AND HEADER=TRUE;
@@ -56,3 +60,5 @@ COPY photos_by_category (photo_id, rest_name, category_name, description, date, 
 
 -- nodetool status photos_by_restaurant
 -- nodetool cfstats -- toptable.photos_by_restaurant
+-- Processed: 44994999 rows; Rate:    3499 rows/s; Avg. rate:    7184 rows/s
+-- 44994999 rows imported from 1 files in 1 hour, 44 minutes, and 23.219 seconds (0 skipped).
