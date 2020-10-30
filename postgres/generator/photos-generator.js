@@ -2,16 +2,45 @@ const fs = require('fs');
 const faker = require('faker');
 const csvWriter = require('csv-write-stream');
 const writer = csvWriter();
+// const db = require('../index');
+// let counter = 0;
+// let counter1 = 4;
 
 const randomize = (min, max) => {
   return Math.floor(Math.random() * (max - min) + min)
-}
+};
 
 const getRandomPhotoUrl = () => {
   const bucketUrl = 'https://toptable-gallery.s3-us-west-1.amazonaws.com/';
   const photoEndpoint = randomize(1, 1000).toString();
   return `${bucketUrl}${photoEndpoint}.jpg`;
 };
+
+// // COPY 44999999
+// const generatePhotos = () => {
+//   writer.pipe(fs.createWriteStream(`postgres/csv/photos8.csv`));
+//   for (var i = 0; i < 5000000; i++) {
+//     if (i % 500000 === 0) {
+//       console.log(`${i / 5000000 * 100}% done`)
+//     }
+//     writer.write({
+//       restaurant_id: randomize(1, 2000000),
+//       category_id: randomize(1, 7),
+//       description: faker.lorem.sentence(),
+//       date: faker.date.past(5),
+//       url_path: getRandomPhotoUrl(),
+//       user_id: randomize(1, 100000),
+//     })
+//   }
+//   writer.end();
+//   // callback();
+//   console.log('Seeded PostgreSQL with 5000000 photos!');
+// };
+
+// generatePhotos();
+
+// ----------------------------------
+with drain event
 
 const generatePhotos = () => {
   writer.pipe(fs.createWriteStream('postgres/csv/photos.csv'));
@@ -56,46 +85,6 @@ const generatePhotos = () => {
     }
   }
   write();
-}
+};
 
 generatePhotos();
-
-// COPY 44999999
-// const generatePhotos = () => {
-//   // node --max-old-space-size=8192
-//   writer.pipe(fs.createWriteStream('postgres/csv/photos.csv'));
-//   for (var i = 0; i < 5000000; i++) {
-//     if (i % 500000 === 0) {
-//       console.log(`${i / 5000000 * 100}% done`)
-//     }
-//     writer.write({
-//       restaurant_id: randomize(1, 2000000),
-//       category_id: randomize(1, 7),
-//       description: faker.lorem.sentence(),
-//       date: faker.date.past(5),
-//       url_path: getRandomPhotoUrl(),
-//       user_id: randomize(1, 100000),
-//     })
-//   }
-//   writer.end();
-//   console.log('Seeded PostgreSQL with 5000000 photos!');
-//   // second batch
-//   writer2.pipe(fs.createWriteStream('postgres/csv/photos1.csv'));
-//   for (var i = 0; i < 5000000; i++) {
-//     if (i % 500000 === 0) {
-//       console.log(`${i / 5000000 * 100}% done`)
-//     }
-//     writer2.write({
-//       restaurant_id: randomize(1, 2000000),
-//       category_id: randomize(1, 7),
-//       description: faker.lorem.sentence(),
-//       date: faker.date.past(5),
-//       url_path: getRandomPhotoUrl(),
-//       user_id: randomize(1, 100000),
-//     })
-//   }
-//   writer2.end();
-//   console.log('Seeded PostgreSQL with 10000000 photos!');
-// }
-
-// generatePhotos();

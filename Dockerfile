@@ -1,9 +1,13 @@
 FROM node:12.18.1
 
-RUN mkdir /src/app
+WORKDIR /usr/src/app
 
-WORKDIR /src/app
+COPY package*.json ./
 
-COPY . /src/app
+RUN npm install --production
 
-RUN npm start
+EXPOSE 3000
+
+COPY . .
+
+CMD ["npm", "start"]

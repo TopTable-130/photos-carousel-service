@@ -44,11 +44,19 @@ CREATE INDEX photos_id_index ON photos ("restaurant_id");
 CREATE INDEX photos_restId_categoryId_index ON photos ("restaurant_id", "category_id");
 
 
-COPY restaurants (name, cuisine, street, city, state, zip_code) FROM '/Users/owner/Desktop/Hack Reactor/SDC - TopTable/photos-carousel-service/postgres/csv/restaurants.csv' DELIMITERS ',' CSV header;
-COPY restaurants (name, cuisine, street, city, state, zip_code) FROM '/Users/owner/Desktop/Hack Reactor/SDC - TopTable/photos-carousel-service/postgres/csv/restaurants2.csv' DELIMITERS ',' CSV header;
-COPY categories (name) FROM '/Users/owner/Desktop/Hack Reactor/SDC - TopTable/photos-carousel-service/postgres/csv/categories.csv' DELIMITERS ','CSV header;
-COPY users (first_name, last_name, user_avatar) FROM '/Users/owner/Desktop/Hack Reactor/SDC - TopTable/photos-carousel-service/postgres/csv/users.csv' DELIMITERS ',' CSV header;
-COPY photos (restaurant_id, category_id, description, date, url_path, user_id) FROM '/Users/owner/Desktop/Hack Reactor/SDC - TopTable/photos-carousel-service/postgres/csv/photos.csv' DELIMITERS ',' CSV header;
+\COPY restaurants (name, cuisine, street, city, state, zip_code) FROM '/Users/owner/Desktop/Hack Reactor/SDC - TopTable/photos-carousel-service/postgres/csv/restaurants.csv' DELIMITERS ',' CSV header;
+\COPY restaurants (name, cuisine, street, city, state, zip_code) FROM '/Users/owner/Desktop/Hack Reactor/SDC - TopTable/photos-carousel-service/postgres/csv/restaurants2.csv' DELIMITERS ',' CSV header;
+\COPY categories (name) FROM '/Users/owner/Desktop/Hack Reactor/SDC - TopTable/photos-carousel-service/postgres/csv/categories.csv' DELIMITERS ','CSV header;
+\COPY users (first_name, last_name, user_avatar) FROM '/Users/owner/Desktop/Hack Reactor/SDC - TopTable/photos-carousel-service/postgres/csv/users.csv' DELIMITERS ',' CSV header;
+\COPY photos (restaurant_id, category_id, description, date, url_path, user_id) FROM '/Users/owner/Desktop/Hack Reactor/SDC - TopTable/photos-carousel-service/postgres/csv/photos.csv' DELIMITERS ',' CSV header;
+\COPY photos (restaurant_id, category_id, description, date, url_path, user_id) FROM '/Users/owner/Desktop/Hack Reactor/SDC - TopTable/photos-carousel-service/postgres/csv/photos1.csv' DELIMITERS ',' CSV header;
+\COPY photos (restaurant_id, category_id, description, date, url_path, user_id) FROM '/Users/owner/Desktop/Hack Reactor/SDC - TopTable/photos-carousel-service/postgres/csv/photos2.csv' DELIMITERS ',' CSV header;
+\COPY photos (restaurant_id, category_id, description, date, url_path, user_id) FROM '/Users/owner/Desktop/Hack Reactor/SDC - TopTable/photos-carousel-service/postgres/csv/photos3.csv' DELIMITERS ',' CSV header;
+\COPY photos (restaurant_id, category_id, description, date, url_path, user_id) FROM '/Users/owner/Desktop/Hack Reactor/SDC - TopTable/photos-carousel-service/postgres/csv/photos4.csv' DELIMITERS ',' CSV header;
+\COPY photos (restaurant_id, category_id, description, date, url_path, user_id) FROM '/Users/owner/Desktop/Hack Reactor/SDC - TopTable/photos-carousel-service/postgres/csv/photos5.csv' DELIMITERS ',' CSV header;
+\COPY photos (restaurant_id, category_id, description, date, url_path, user_id) FROM '/Users/owner/Desktop/Hack Reactor/SDC - TopTable/photos-carousel-service/postgres/csv/photos6.csv' DELIMITERS ',' CSV header;
+\COPY photos (restaurant_id, category_id, description, date, url_path, user_id) FROM '/Users/owner/Desktop/Hack Reactor/SDC - TopTable/photos-carousel-service/postgres/csv/photos7.csv' DELIMITERS ',' CSV header;
+\COPY photos (restaurant_id, category_id, description, date, url_path, user_id) FROM '/Users/owner/Desktop/Hack Reactor/SDC - TopTable/photos-carousel-service/postgres/csv/photos8.csv' DELIMITERS ',' CSV header;
 
 -- COPY 44999999
 -- to allow multiple categories per photo:

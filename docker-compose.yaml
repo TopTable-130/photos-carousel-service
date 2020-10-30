@@ -1,26 +1,10 @@
 version: '3'
 
 services:
-  survey:
-    build: katpoa/sdc-gallery
-    depends_on:
-      - 'database'
-    ports:
-      - '8080:8080'
-
-  results:
-    build: katpoa/sdc-postgres
-    depends_on:
-      - 'postgres'
-    ports:
-      - '3000:3000'
-
-  database:
-    image: postgres:latest
-    ports:
-      - '5432:5432'
-      environment:
-      - POSTGRES_DB=toptable
-      - POSTGRES_USER=owner
-      - POSTGRES_PASSWORD=toptable
+  app:
+    container_name: katpoa/sdc-service
+    image: katpoa/sdc-service:latest
+    restart: always
     build: .
+    ports:
+      - '80:3000'

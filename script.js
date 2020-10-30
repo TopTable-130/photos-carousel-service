@@ -1,10 +1,10 @@
 import http from 'k6/http';
 import { sleep } from 'k6';
-import { check } from 'k6';
-import { Rate, Trend } from 'k6/metrics';
+// import { check } from 'k6';
+// import { Rate, Trend } from 'k6/metrics';
 
-export let galleryTrend = new Trend('GET /api/restaurants Response Time (ms)');
-export let galleryErrorRate = new Rate('GET /api/restaurants Error Rate');
+// export let galleryTrend = new Trend('GET /api/restaurants Response Time (ms)');
+// export let galleryErrorRate = new Rate('GET /api/restaurants Error Rate');
 
 export let options = {
   stages: [
@@ -19,15 +19,26 @@ export let options = {
 
 export default function () {
   const id = Math.ceil(Math.random() * 10000000);
-  const getUrl = `http://localhost:3000/api/restaurants/${id}/photos`;
+  const BASE_URL = 'http://54.193.3.189/';
 
-  const galleryRes = http.get(getUrl);
+  // GET
+  const getUrl = `/api/restaurants/${id}/photos`;
 
-  check(galleryRes, {
-    'status is 200': r => r.status === 200
-  }) || galleryErrorRate.add(1);
+  let responses = http.batch([
+    [
+      'GET',
+      `${BASE_URL}${getUrl}`,
+      null,
+    ],
+  ]);
 
-  galleryTrend.add(galleryRes.timings.duration);
+  // const galleryRes = http.get(`${BASE_URL}getUrl`);
+
+  // check(galleryRes, {
+  //   'status is 200': r => r.status === 200
+  // }) || galleryErrorRate.add(1);
+
+  // galleryTrend.add(galleryRes.timings.duration);
 
   sleep(1);
 }

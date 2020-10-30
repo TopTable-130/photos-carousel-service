@@ -1,0 +1,15 @@
+Front-end
+
+*.csv
+
+node_modules
+
+csv
+
+csv.zip
+
+cassandra
+
+*.log
+
+data
